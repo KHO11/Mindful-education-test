@@ -1,74 +1,102 @@
 import React from "react";
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
-import { Table } from 'semantic-ui-react'
+import { Button, Table, TableBody, TableRow } from 'semantic-ui-react'
 
 
 
 class App extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      getColleges: []
-
+      items: [],
+      isLoaded: true,
+      sortType: "",
+      search: "" 
     };
+   
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     fetch("https://mindfuleducation-cdn.s3.eu-west-1.amazonaws.com/misc/data.json")
-    .then(result => result.json())
-    .then(getColleges => this.setState({getColleges : getColleges.value}))
-    
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          items: res.getColleges,
+        });
+      });
+
   }
 
-  toggleSort = () => {
-    fetch("https://mindfuleducation-cdn.s3.eu-west-1.amazonaws.com/misc/data.json").then((res) => res.json())
-    .then((data) => {
-      data.sort((a,b) => a.title.localeCompare(b.title));
-      this.setState({data: data});
-    });
+  onSort(sortType){
+    this.setState({sortType})
+  }
 
-  };
+  searchFilter(event) {
+    console.log(event.target.value);
+    this.setState({search : event.target.value});
+  }
+
 
   render() {
-    return(
-      <div>
-        <h1>Partners</h1>
+    var { items, sortType, search } = this.state;
+
+    items.sort((a,b) => {
+      if(sortType === "asc") {
+        var isReversed = 1;
+      }
+
+      else if(sortType === "desc") {
+        var isReversed = -1;
+      }
+      
+      return isReversed * a.name.localeCompare(b.name)
+      })
+
+      var filteredCollege = items.filter((item) => {
+        return item.name.indexOf(search) !== -1;
+      })
+
+    var itemInfo = filteredCollege.map(item => (
+      <TableRow key={item.id}>
+        <Table.Cell>{item.name}</Table.Cell>
+        <Table.Cell>{item.groupPrefix}</Table.Cell>
+        <Table.Cell><img src={item.logo}/></Table.Cell>
+        <Table.Cell>{item.ofstedRating}</Table.Cell>
+      </TableRow>
+    )); 
+
+      return(
+        <div className="App">
+          <h1>Partners</h1>
         <a href="search" className="search">Name</a>
-        <div class="ui input" id="searchBox"><input type="text"/></div>
+        <div class="ui input" id="searchBox"><input type="text" onChange={this.searchFilter.bind(this)}/></div>
 
         <a href="search" className="search">Prefix</a>
         <div class="ui input" id="searchBox"><input type="text"/></div>
 
         <a href="search" className="search">Ofsted Rating</a>
         <div class="ui input" id="searchBox"><input type="text" id="rating" placeholder="Ofsted Rating"/></div>
+
         <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell onClick={() => this.toggleSort()}>Partner</Table.HeaderCell>
-              <Table.HeaderCell onClick={() => this.toggleSort()}>Prefix</Table.HeaderCell>
-              <Table.HeaderCell onClick={() => this.toggleSort()}>Logo/Preroll</Table.HeaderCell>
-              <Table.HeaderCell onClick={() => this.toggleSort()}>Ofsted Rating</Table.HeaderCell>
-            </Table.Row>
+        <Table.Header>
+            {<Table.Row>
+              <Table.HeaderCell onClick={()=>this.onSort(this.state.sortType==="asc"?"desc":"asc")}>Partner</Table.HeaderCell>
+              <Table.HeaderCell onClick={()=>this.onSort(this.state.sortType==="asc"?"desc":"asc")}>Prefix</Table.HeaderCell>
+              <Table.HeaderCell>Logo/Preroll</Table.HeaderCell>
+              <Table.HeaderCell>Ofsted Rating</Table.HeaderCell>
+            </Table.Row>}
           </Table.Header>
 
-          <Table.Body>
-          {this.state.getColleges.map(item => {
-            return (
-              <Table.Row key={item.id}>
-              <Table.Cell>{item.name}</Table.Cell>
-              <Table.Cell>{item.groupPrefix}</Table.Cell>
-              <Table.Cell>{item.logo}</Table.Cell>
-              <Table.Cell>{item.ofstedRating}</Table.Cell>
-            </Table.Row>
-            );
-          })}
-          </Table.Body>
+          <TableBody>
+            {itemInfo}
+          </TableBody>
         </Table>
-      </div>
-    );
+        </div>
+      );
+    }
   }
-}
+
 
 export default App;

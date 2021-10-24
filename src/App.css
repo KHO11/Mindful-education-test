@@ -28,11 +28,17 @@
   color: #61dafb;
 }
 
+h1 {
+  text-align: left;
+  position: relative;
+  left: 3%;
+}
+
 .search {
   color: black;
   position: relative;
-  top: 92px;
-  left: 37px;
+  top: 5px;
+  right: 23.2%;
 }
 
 #rating {
@@ -43,12 +49,22 @@
 #searchBox {
   display : inline;
   position: relative;
-  top: 132px;
+  top: 50px;
+  right: 26%;
 }
 
 table.ui.celled.table {
   position: relative;
-  top: 146px;
+  left: 3%;
+  top: 55px;
+  width: 72%;
+}
+
+img {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 @keyframes App-logo-spin {
