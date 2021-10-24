@@ -1,3 +1,17 @@
+# Mindful Education test
+
+An application that shows details of each college in a form of a table being fetched externally through a link. When data is fetched from the link, the data has to be converted into JSON format.
+
+# Lessons learned
+Learnt sucessfully how to filter and sort data within the table by using the map function.
+
+# Possible future
+In the ofsted rating section, colour specific table data such as good, outstanding as green, requires improvement as yellow and inadequate as red.
+Sorting the ofsted ratings.
+Filter the prefix and the ofsted ratings.
+
+# Deployment
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
