@@ -13,7 +13,7 @@ class App extends React.Component {
       items: [],
       isLoaded: true,
       sortType: "",
-      search: "" 
+      search: "",
     };
    
   }
@@ -38,17 +38,12 @@ class App extends React.Component {
     this.setState({search : event.target.value});
   }
 
-
   render() {
     var { items, sortType, search } = this.state;
 
     items.sort((a,b) => {
       if(sortType === "asc") {
         var isReversed = 1;
-      }
-
-      else if(sortType === "desc") {
-        var isReversed = -1;
       }
       
       return isReversed * a.name.localeCompare(b.name)
@@ -59,9 +54,10 @@ class App extends React.Component {
       })
 
     var itemInfo = filteredCollege.map(item => (
+
       <TableRow key={item.id}>
         <Table.Cell>{item.name}</Table.Cell>
-        <Table.Cell>{item.groupPrefix}</Table.Cell>
+          <Table.Cell>{item.groupPrefix}</Table.Cell>
         <Table.Cell><img src={item.logo}/></Table.Cell>
         <Table.Cell>{item.ofstedRating}</Table.Cell>
       </TableRow>
@@ -69,21 +65,19 @@ class App extends React.Component {
 
       return(
         <div className="App">
+          {console.log(itemInfo)}
           <h1>Partners</h1>
+
+        <div className="partnersTag">
         <a href="search" className="search">Name</a>
         <div class="ui input" id="searchBox"><input type="text" onChange={this.searchFilter.bind(this)}/></div>
-
-        <a href="search" className="search">Prefix</a>
-        <div class="ui input" id="searchBox"><input type="text"/></div>
-
-        <a href="search" className="search">Ofsted Rating</a>
-        <div class="ui input" id="searchBox"><input type="text" id="rating" placeholder="Ofsted Rating"/></div>
+        </div>
 
         <Table celled>
         <Table.Header>
             {<Table.Row>
               <Table.HeaderCell onClick={()=>this.onSort(this.state.sortType==="asc"?"desc":"asc")}>Partner</Table.HeaderCell>
-              <Table.HeaderCell onClick={()=>this.onSort(this.state.sortType==="asc"?"desc":"asc")}>Prefix</Table.HeaderCell>
+              <Table.HeaderCell onClick={()=>this.onSort(this.state.sortType=="asc"?"desc":"asc")}>Prefix</Table.HeaderCell>
               <Table.HeaderCell>Logo/Preroll</Table.HeaderCell>
               <Table.HeaderCell>Ofsted Rating</Table.HeaderCell>
             </Table.Row>}

@@ -67,6 +67,12 @@ img {
   display: block;
 }
 
+.partnersTag {
+  text-align: left;
+  position: relative;
+  left: 27%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
