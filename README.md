@@ -1,9 +1,10 @@
 # Mindful Education test
 
-An application that shows details of each college in a form of a table being fetched externally through a link. When data is fetched from the link, the data has to be converted into JSON format.
+An application that shows details of each college in a form of a table being fetched externally through a link. When data is fetched from the api, data is converted into JSON.
 
 # Lessons learned
-Learnt sucessfully how to filter and sort data within the table by using the map function.
+Learnt sucessfully how to filter and sort data within the table by using the map function. 
+Fetching data from an api, and using the data fetched to filter through a user search.
 
 # Possible future
 In the ofsted rating section, colour specific table data such as good, outstanding as green, requires improvement as yellow and inadequate as red.
@@ -12,7 +13,7 @@ Filter the prefix and the ofsted ratings.
 
 # Deployment
 
-https://mindfuleducation.netlify.app/
+https://mindful-education.netlify.app/
 
 # Getting Started with Create React App
 
